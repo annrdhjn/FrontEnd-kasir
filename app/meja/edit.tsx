@@ -4,27 +4,30 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
 
-type Stok = {
+type Meja = {
   id: number;
-  menu_id: string;
-  jumlah: string;
-};
+  nomor_meja: string;
+  kapasitas: string;
+  status: string;
+}
 const API_URL = 'http://127.0.0.1:8000/api'
-const EditStok = (stok: Stok) => {
+const EditMeja = (meja: Meja) => {
   const [modal, setModal] = useState(false);
-  const [menu_id, setMenu_id] = useState(stok.menu_id);
-  const [jumlah, setJumlah] = useState(stok.jumlah);
+  const [nomor_meja, setNomor_meja] = useState(meja.nomor_meja);
+  const [kapasitas, setKapasitas] = useState(meja.kapasitas);
+  const [status, setStatus] = useState(meja.status);
   const [isMutating, setIsMutating] = useState(false);
   const router = useRouter();
   const handleChange = () => setModal(!modal);
   const handleUpdate = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsMutating(true);
-    let endpoint = `${API_URL}/stok/${stok.id}`;
-    const data = { menu_id: menu_id, jumlah: jumlah};
+    let endpoint = `${API_URL}/meja/${meja.id}`;
+    const data = { nomor_meja: nomor_meja, kapasitas: kapasitas, status: status};
     await axios.patch(endpoint, data);
-    setMenu_id("");
-    setJumlah("");
+    setNomor_meja("");
+    setKapasitas("");
+    setStatus("");
     setIsMutating(false);
     router.refresh();
     setModal(false);
@@ -42,24 +45,32 @@ const EditStok = (stok: Stok) => {
       />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Edit Stok Makanan</h3>
+          <h3 className="font-bold text-lg">Edit Meja</h3>
           <form onSubmit={handleUpdate}>
             <div className="form-control">
-              <label className="label font-bold">Menu ID</label>
+              <label className="label font-bold">Nomor Meja</label>
               <input
                 type="text"
-                value={menu_id}
-                onChange={(e) => setMenu_id(e.target.value)}
+                value={nomor_meja}
+                onChange={(e) => setNomor_meja(e.target.value)}
                 className="input w-full input-bordered"
-                placeholder="Menu ID"
+                placeholder="Edit Nomor Meja"
               />
-              <label className="label font-bold">Jumlah Stok</label>
+              <label className="label font-bold">Kapasitas Meja</label>
               <input
                 type="text"
-                value={jumlah}
-                onChange={(e) => setJumlah(e.target.value)}
+                value={kapasitas}
+                onChange={(e) => setKapasitas(e.target.value)}
                 className="input w-full input-bordered"
-                placeholder="Jumlah Stok"
+                placeholder="Edit Kapasitas Meja"
+              />
+              <label className="label font-bold">Status Meja</label>
+              <input
+                type="text"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="input w-full input-bordered"
+                placeholder="Edit Status Meja"
               />
             </div>
             <div className="modal-action">
@@ -83,4 +94,4 @@ const EditStok = (stok: Stok) => {
   );
 };
 
-export default EditStok
+export default EditMeja

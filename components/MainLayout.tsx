@@ -1,36 +1,15 @@
 import React from 'react'
 import Link from "next/link";
+import MainHeader from './MainHeader';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
-          <Link href="/category">Category</Link>
-        </li>
-        <li>
-          <Link href="/jenis">Jenis Makanan</Link>
-        </li>
-        <li>
-          <Link href="/menu">Menu Makanan</Link>
-        </li>
-        <li>
-          <Link href="/stok">Stok Makanan</Link>
-        </li>
-        <li>
-          <Link href="/pelanggan">Pelanggan</Link>
-        </li>
-      </ul>
-
+    <div className="bg-slate-700 w-full h-screen flex flex-row">
+    <MainHeader/>
       {children}
     </div>
   );
+
 };
 
 export default MainLayout
